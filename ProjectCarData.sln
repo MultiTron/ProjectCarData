@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCD.API", "PCD.API\PCD.API.csproj", "{6E4A7BEB-44FB-4D34-B77A-6C354B9AD4DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCD.Data", "PCD.Data\PCD.Data.csproj", "{E5D2044C-56B9-495D-A61B-5F6F59E1B8F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E4A7BEB-44FB-4D34-B77A-6C354B9AD4DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E4A7BEB-44FB-4D34-B77A-6C354B9AD4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E4A7BEB-44FB-4D34-B77A-6C354B9AD4DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E4A7BEB-44FB-4D34-B77A-6C354B9AD4DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5D2044C-56B9-495D-A61B-5F6F59E1B8F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5D2044C-56B9-495D-A61B-5F6F59E1B8F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5D2044C-56B9-495D-A61B-5F6F59E1B8F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5D2044C-56B9-495D-A61B-5F6F59E1B8F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7AE669B-59EB-4D14-8FE5-8245A398E1D6}
+	EndGlobalSection
+EndGlobal

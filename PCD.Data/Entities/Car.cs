@@ -1,0 +1,14 @@
+﻿namespace PCD.Data.Entities
+{
+    public class Car : BaseEntity
+    {
+        required public string Brand { get; set; }
+        required public string Model { get; set; }
+        required public int Year { get; set; }
+        required public string CountryOfRegistration { get; set; }
+        required public string LicensePlateNumber { get; set; }
+        required public string VIN { get; set; }
+        required public List<Trip> Trips { get; set; }
+        public Trip? LastTrip { get => Trips.LastOrDefault(); }
+    }
+}
