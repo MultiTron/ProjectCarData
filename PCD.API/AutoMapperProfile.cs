@@ -21,6 +21,7 @@ namespace PCD.API
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id))
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(x => x.FirstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(x => x.LastName));
+
         }
     }
 }
