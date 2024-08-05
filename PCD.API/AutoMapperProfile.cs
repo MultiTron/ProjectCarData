@@ -31,8 +31,13 @@ namespace PCD.API
                 .ForMember(dest => dest.CountryOfRegistration, opt => opt.MapFrom(x => x.CountryOfRegistration))
                 .ForMember(dest => dest.VIN, opt => opt.MapFrom(x => ""))
                 .ForMember(dest => dest.Trips, opt => opt.MapFrom(x => new List<Trip>()));
-            CreateMap<Car, UserViewModel>()
-                .ForAllMembers(opt => opt.MapFrom(x => x));
+            CreateMap<Car, CarViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id))
+                .ForMember(dest => dest.Model, opt => opt.MapFrom(x => x.Model))
+                .ForMember(dest => dest.Brand, opt => opt.MapFrom(x => x.Brand))
+                .ForMember(dest => dest.Year, opt => opt.MapFrom(x => x.Year))
+                .ForMember(dest => dest.LicensePlateNumber, opt => opt.MapFrom(x => x.LicensePlateNumber))
+                .ForMember(dest => dest.CountryOfRegistration, opt => opt.MapFrom(x => x.CountryOfRegistration));
         }
     }
 }
