@@ -1,7 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using PCD.API;
-using PCD.ApplicationServices.Implementations;
-using PCD.ApplicationServices.Interfaces;
 using PCD.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,13 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 var conn = builder.Configuration.GetConnectionString("DefaultConnectionString");
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(conn, x => x.MigrationsAssembly("PCD.API")));
 
-builder.Services.AddScoped<IUsersManagementService, UsersManagementService>();
-builder.Services.AddScoped<ICarsManagementService, CarsManagementService>();
-
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
-
-builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
