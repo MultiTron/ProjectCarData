@@ -26,11 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\PCD.Data\PCD.Data.csproj" />
+    <ProjectReference Include="..\PCD.ApplicationServices\PCD.ApplicationServices.csproj" />
   </ItemGroup>
 
 </Project>
