@@ -13,6 +13,13 @@ builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServe
 builder.Services.AddScoped<IUsersManagementService, UsersManagementService>();
 builder.Services.AddScoped<ICarsManagementService, CarsManagementService>();
 
+builder.Services.AddHttpClient("TollApi", client =>
+{
+    client.BaseAddress = builder.Configuration.GetValue<Uri>("TollAPIUrl");
+    client.DefaultRequestHeaders.Accept.Clear();
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
+
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 

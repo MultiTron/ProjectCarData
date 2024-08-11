@@ -7,5 +7,6 @@ namespace PCD.ApplicationServices.Interfaces
     {
         public Task<GetCarsResponse> GetAllCarsAsync();
         public Task<CreateCarResponse> CreateCar(CreateCarRequest request);
+        public Task<GetCarResponse> GetCarById(int id);
     }
 }
