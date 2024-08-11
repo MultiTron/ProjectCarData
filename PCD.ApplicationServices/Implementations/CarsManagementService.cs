@@ -20,11 +20,11 @@ namespace PCD.ApplicationServices.Implementations
 
         public async Task<CreateCarResponse> CreateCar(CreateCarRequest request)
         {
-            await _context.Cars.AddAsync(_mapper.Map<Car>(request.Car));
+            var responseCar = await _context.Cars.AddAsync(_mapper.Map<Car>(request.Car));
             var status = await _context.SaveChangesAsync();
             if (status > 0)
             {
-                return new();
+                return new(_mapper.Map<CarViewModel>(responseCar.Entity));
             }
             else
             {
@@ -38,5 +38,8 @@ namespace PCD.ApplicationServices.Implementations
             await _context.Cars.ForEachAsync(x => cars.Add(_mapper.Map<CarViewModel>(x)));
             return new(cars);
         }
+
+        public async Task<GetCarResponse> GetCarById(int id)
+            => new(_mapper.Map<CarViewModel>(await _context.Cars.FindAsync(id)));
     }
 }

@@ -2,11 +2,10 @@
 
 namespace PCD.ApplicationServices.Messaging.Cars.Response
 {
-    public class CreateCarResponse : BaseResponse
+    public class GetCarResponse : BaseResponse
     {
         public CarViewModel? Car { get; set; }
-        public CreateCarResponse() { }
-        public CreateCarResponse(CarViewModel car)
+        public GetCarResponse(CarViewModel? car = null)
         {
             Car = car;
         }
