@@ -1,17 +1,16 @@
 ﻿using PCD.Infrastructure.DTOs.Users;
 
-namespace PCD.ApplicationServices.Messaging.Users.Response
+namespace PCD.ApplicationServices.Messaging.Users.Response;
+
+public class GetUsersResponse : BaseResponse
 {
-    public class GetUsersResponse : BaseResponse
+    public List<UserViewModel> Users { get; set; }
+    public GetUsersResponse()
     {
-        public List<UserViewModel> Users { get; set; }
-        public GetUsersResponse()
-        {
-            Users = new List<UserViewModel>();
-        }
-        public GetUsersResponse(List<UserViewModel> users)
-        {
-            Users = users;
-        }
+        Users = new List<UserViewModel>();
+    }
+    public GetUsersResponse(List<UserViewModel> users)
+    {
+        Users = users;
     }
 }

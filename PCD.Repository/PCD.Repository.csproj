@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PCD.ApplicationServices\PCD.ApplicationServices.csproj" />
+    <ProjectReference Include="..\PCD.Data\PCD.Data.csproj" />
   </ItemGroup>
 
 </Project>

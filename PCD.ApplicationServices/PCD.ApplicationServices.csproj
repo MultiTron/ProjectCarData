@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PCD.Data\PCD.Data.csproj" />
     <ProjectReference Include="..\PCD.Infrastructure\PCD.Infrastructure.csproj" />
+    <ProjectReference Include="..\PCD.Repository\PCD.Repository.csproj" />
   </ItemGroup>
 
 </Project>

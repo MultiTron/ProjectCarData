@@ -1,11 +1,10 @@
 ﻿using PCD.ApplicationServices.Messaging.Users.Request;
 using PCD.ApplicationServices.Messaging.Users.Response;
 
-namespace PCD.ApplicationServices.Interfaces
+namespace PCD.ApplicationServices.Interfaces;
+
+public interface IUsersManagementService
 {
-    public interface IUsersManagementService
-    {
-        public Task<GetUsersResponse> GetAllUsers();
-        public Task<CreateUserResponse> CreateUser(CreateUserRequest request);
-    }
+    public Task<GetUsersResponse> GetAllUsers();
+    public Task<CreateUserResponse> CreateUser(CreateUserRequest request);
 }
