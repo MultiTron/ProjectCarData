@@ -10,5 +10,5 @@ public class UsersRepository : Repository<User>, IUsersRepository
     {
     }
     public async override Task<IEnumerable<User>> GetAll()
-        => await base.GetAll().Result.AsQueryable().Include("Car").ToListAsync();
+        => await base.GetAll().Result.AsQueryable().Include("Cars").ToListAsync();
 }
