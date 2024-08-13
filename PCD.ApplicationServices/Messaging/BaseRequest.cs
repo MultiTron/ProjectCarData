@@ -1,6 +1,5 @@
-﻿namespace PCD.ApplicationServices.Messaging
+﻿namespace PCD.ApplicationServices.Messaging;
+
+public class BaseRequest
 {
-    public class BaseRequest
-    {
-    }
 }

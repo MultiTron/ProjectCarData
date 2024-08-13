@@ -1,8 +1,7 @@
-﻿namespace PCD.Infrastructure.DTOs.Users
+﻿namespace PCD.Infrastructure.DTOs.Users;
+
+public class UserAlterModel
 {
-    public class UserAlterModel
-    {
-        required public string FirstName { get; set; }
-        required public string LastName { get; set; }
-    }
+    required public string FirstName { get; set; }
+    required public string LastName { get; set; }
 }

@@ -8,36 +8,35 @@ using PCD.Data;
 using PCD.Data.Entities;
 using PCD.Infrastructure.DTOs.Users;
 
-namespace PCD.ApplicationServices.Implementations
+namespace PCD.ApplicationServices.Implementations;
+
+public class UsersManagementService : BaseManagementService, IUsersManagementService
 {
-    public class UsersManagementService : BaseManagementService, IUsersManagementService
+    private readonly ApplicationContext _context;
+
+    public UsersManagementService(ApplicationContext context, IMapper mapper, ILogger<UsersManagementService> logger) : base(mapper, logger)
     {
-        private readonly ApplicationContext _context;
+        _context = context;
+    }
 
-        public UsersManagementService(ApplicationContext context, IMapper mapper, ILogger<UsersManagementService> logger) : base(mapper, logger)
+    public async Task<CreateUserResponse> CreateUser(CreateUserRequest request)
+    {
+        await _context.Users.AddAsync(_mapper.Map<User>(request.User));
+        var status = await _context.SaveChangesAsync();
+        if (status > 0)
         {
-            _context = context;
+            return new();
         }
+        else
+        {
+            return new() { StatusCode = Messaging.StatusCode.ClientError };
+        }
+    }
 
-        public async Task<CreateUserResponse> CreateUser(CreateUserRequest request)
-        {
-            await _context.Users.AddAsync(_mapper.Map<User>(request.User));
-            var status = await _context.SaveChangesAsync();
-            if (status > 0)
-            {
-                return new();
-            }
-            else
-            {
-                return new() { StatusCode = Messaging.StatusCode.ClientError };
-            }
-        }
-
-        public async Task<GetUsersResponse> GetAllUsers()
-        {
-            var users = new List<UserViewModel>();
-            await _context.Users.ForEachAsync(x => users.Add(_mapper.Map<UserViewModel>(x)));
-            return new(users);
-        }
+    public async Task<GetUsersResponse> GetAllUsers()
+    {
+        var users = new List<UserViewModel>();
+        await _context.Users.ForEachAsync(x => users.Add(_mapper.Map<UserViewModel>(x)));
+        return new(users);
     }
 }
