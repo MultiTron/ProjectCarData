@@ -12,12 +12,14 @@ public class UnitOfWork : IUnitOfWork
     //TODO: add repositories
 
     public ICarsRepository Cars { get; set; }
+    public IUsersRepository Users { get; set; }
 
     public UnitOfWork(DbContext context)
     {
         _context = context;
         //TODO: initialize repositories with context
         Cars = new CarsRepository(context);
+        Users = new UsersRepository(context);
     }
     public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
 
