@@ -3,15 +3,20 @@ using PCD.API;
 using PCD.ApplicationServices.Implementations;
 using PCD.ApplicationServices.Interfaces;
 using PCD.Data;
+using PCD.Repository.Implementations;
+using PCD.Repository.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var conn = builder.Configuration.GetConnectionString("DefaultConnectionString");
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(conn, x => x.MigrationsAssembly("PCD.API")));
+builder.Services.AddDbContext<DbContext, ApplicationContext>(options => options.UseSqlServer(conn, x => x.MigrationsAssembly("PCD.API")));
 
 builder.Services.AddScoped<IUsersManagementService, UsersManagementService>();
 builder.Services.AddScoped<ICarsManagementService, CarsManagementService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ICarsRepository, CarsRepository>();
+
 
 builder.Services.AddHttpClient("TollApi", client =>
 {

@@ -1,30 +1,29 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PCD.ApplicationServices.Interfaces;
 using PCD.ApplicationServices.Messaging.Cars.Request;
 using PCD.ApplicationServices.Messaging.Cars.Response;
-using PCD.Data;
 using PCD.Data.Entities;
 using PCD.Infrastructure.DTOs.Cars;
+using PCD.Repository.Interfaces;
 
 namespace PCD.ApplicationServices.Implementations;
 
 public class CarsManagementService : BaseManagementService, ICarsManagementService
 {
-    private readonly ApplicationContext _context;
-    public CarsManagementService(ApplicationContext context, IMapper mapper, ILogger<CarsManagementService> logger) : base(mapper, logger)
+    private readonly IUnitOfWork _unitOfWork;
+    public CarsManagementService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CarsManagementService> logger) : base(mapper, logger)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<CreateCarResponse> CreateCar(CreateCarRequest request)
     {
-        var responseCar = await _context.Cars.AddAsync(_mapper.Map<Car>(request.Car));
-        var status = await _context.SaveChangesAsync();
+        var responseCar = await _unitOfWork.Cars.Insert(_mapper.Map<Car>(request.Car));
+        var status = await _unitOfWork.SaveChangesAsync();
         if (status > 0)
         {
-            return new(_mapper.Map<CarViewModel>(responseCar.Entity));
+            return new(_mapper.Map<CarViewModel>(responseCar));
         }
         else
         {
@@ -33,12 +32,8 @@ public class CarsManagementService : BaseManagementService, ICarsManagementServi
     }
 
     public async Task<GetCarsResponse> GetAllCarsAsync()
-    {
-        var cars = new List<CarViewModel>();
-        await _context.Cars.ForEachAsync(x => cars.Add(_mapper.Map<CarViewModel>(x)));
-        return new(cars);
-    }
+        => new((await _unitOfWork.Cars.GetAll()).Select(_mapper.Map<CarViewModel>).ToList());
 
     public async Task<GetCarResponse> GetCarById(int id)
-        => new(_mapper.Map<CarViewModel>(await _context.Cars.FindAsync(id)));
+        => new(_mapper.Map<CarViewModel>(await _unitOfWork.Cars.GetById(id)));
 }
