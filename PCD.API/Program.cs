@@ -16,6 +16,7 @@ builder.Services.AddScoped<IUsersManagementService, UsersManagementService>();
 builder.Services.AddScoped<ICarsManagementService, CarsManagementService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICarsRepository, CarsRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
 
 builder.Services.AddHttpClient("TollApi", client =>
