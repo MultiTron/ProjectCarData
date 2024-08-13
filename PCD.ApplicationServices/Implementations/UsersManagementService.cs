@@ -20,11 +20,11 @@ public class UsersManagementService : BaseManagementService, IUsersManagementSer
 
     public async Task<CreateUserResponse> CreateUser(CreateUserRequest request)
     {
-        await _unitOfWork.Users.Insert(_mapper.Map<User>(request.User));
+        var responseCar = await _unitOfWork.Users.Insert(_mapper.Map<User>(request.User));
         var status = await _unitOfWork.SaveChangesAsync();
         if (status > 0)
         {
-            return new();
+            return new(_mapper.Map<UserViewModel>(responseCar));
         }
         else
         {
