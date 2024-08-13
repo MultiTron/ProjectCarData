@@ -48,7 +48,7 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         return await DbSet.FindAsync(id);
     }
 
-    public void Insert(T entity)
+    public async Task<T> Insert(T entity)
     {
         entity.CreatedOn = DateTime.UtcNow;
         EntityEntry<T> entry = this.Context.Entry(entity);
@@ -58,8 +58,9 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         }
         else
         {
-            DbSet.Add(entity);
+            await DbSet.AddAsync(entity);
         }
+        return entity;
     }
 
     public void Update(T entity, string excludeProperties = "")
@@ -97,4 +98,5 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         //    return query;
         //}
     }
+
 }
