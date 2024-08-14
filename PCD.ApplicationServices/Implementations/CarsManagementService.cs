@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using PCD.ApplicationServices.Interfaces;
+using PCD.ApplicationServices.Messaging;
 using PCD.ApplicationServices.Messaging.Request;
 using PCD.ApplicationServices.Messaging.Response;
 using PCD.Data.Entities;
@@ -17,9 +18,9 @@ public class CarsManagementService : BaseManagementService, ICarsManagementServi
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<CreateResponse> CreateCar(CreateCarRequest request)
+    public async Task<CreateResponse<CarViewModel>> CreateCar(CreateRequest<CarAlterModel> request)
     {
-        var responseCar = await _unitOfWork.Cars.Insert(_mapper.Map<Car>(request.Car));
+        var responseCar = await _unitOfWork.Cars.Insert(_mapper.Map<Car>(request.Content));
         var status = await _unitOfWork.SaveChangesAsync();
         if (status > 0)
         {
@@ -31,9 +32,9 @@ public class CarsManagementService : BaseManagementService, ICarsManagementServi
         }
     }
 
-    public async Task<ListResponse> GetAllCarsAsync()
+    public async Task<ListResponse<CarViewModel>> GetAllCarsAsync()
         => new((await _unitOfWork.Cars.GetAll()).Select(_mapper.Map<CarViewModel>).ToList());
 
-    public async Task<GetResponse> GetCarById(int id)
-        => new(_mapper.Map<CarViewModel>(await _unitOfWork.Cars.GetById(id)));
+    public async Task<GetResponse<CarViewModel>> GetCarById(IdRequest request)
+        => new(_mapper.Map<CarViewModel>(await _unitOfWork.Cars.GetById(request.Id)));
 }

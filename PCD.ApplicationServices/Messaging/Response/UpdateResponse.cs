@@ -1,11 +1,11 @@
 ﻿using PCD.Infrastructure.DTOs;
 
 namespace PCD.ApplicationServices.Messaging.Response;
-
-public class GetResponse<T> : BaseResponse where T : BaseViewModel
+public class UpdateResponse<T> : BaseResponse where T : BaseViewModel
 {
     public T? Content { get; set; }
-    public GetResponse(T? content = null)
+    public UpdateResponse() { }
+    public UpdateResponse(T content)
     {
         Content = content;
     }

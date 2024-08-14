@@ -1,11 +1,13 @@
-﻿using PCD.ApplicationServices.Messaging.Request;
+﻿using PCD.ApplicationServices.Messaging;
+using PCD.ApplicationServices.Messaging.Request;
 using PCD.ApplicationServices.Messaging.Response;
+using PCD.Infrastructure.DTOs.Cars;
 
 namespace PCD.ApplicationServices.Interfaces;
 
 public interface ICarsManagementService
 {
-    public Task<ListResponse> GetAllCarsAsync();
-    public Task<CreateResponse> CreateCar(CreateCarRequest request);
-    public Task<GetResponse> GetCarById(int id);
+    public Task<ListResponse<CarViewModel>> GetAllCarsAsync();
+    public Task<CreateResponse<CarViewModel>> CreateCar(CreateRequest<CarAlterModel> request);
+    public Task<GetResponse<CarViewModel>> GetCarById(IdRequest request);
 }

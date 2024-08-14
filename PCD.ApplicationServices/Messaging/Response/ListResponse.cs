@@ -1,8 +1,8 @@
-﻿using PCD.Data.Entities;
+﻿using PCD.Infrastructure.DTOs;
 
 namespace PCD.ApplicationServices.Messaging.Response;
 
-public class ListResponse<T> : BaseResponse where T : BaseEntity
+public class ListResponse<T> : BaseResponse where T : BaseViewModel
 {
     public List<T> Content { get; set; }
 
