@@ -14,9 +14,12 @@ builder.Services.AddDbContext<DbContext, ApplicationContext>(options => options.
 
 builder.Services.AddScoped<IUsersManagementService, UsersManagementService>();
 builder.Services.AddScoped<ICarsManagementService, CarsManagementService>();
+builder.Services.AddScoped<ITripsManagementService, TripsManagementService>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<ICarsRepository, CarsRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<ICarsRepository, CarsRepository>();
+builder.Services.AddScoped<ITripsRepository, TripsRepository>();
 
 
 builder.Services.AddHttpClient("TollApi", client =>
