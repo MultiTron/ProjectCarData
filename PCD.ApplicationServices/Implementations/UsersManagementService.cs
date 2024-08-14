@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using PCD.ApplicationServices.Interfaces;
-using PCD.ApplicationServices.Messaging.Users.Request;
-using PCD.ApplicationServices.Messaging.Users.Response;
+using PCD.ApplicationServices.Messaging.Request;
+using PCD.ApplicationServices.Messaging.Response;
 using PCD.Data.Entities;
 using PCD.Infrastructure.DTOs.Users;
 using PCD.Repository.Interfaces;
@@ -18,13 +18,13 @@ public class UsersManagementService : BaseManagementService, IUsersManagementSer
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<CreateUserResponse> CreateUser(CreateUserRequest request)
+    public async Task<CreateResponse<UserViewModel>> CreateUser(CreateRequest<UserAlterModel> request)
     {
-        var responseCar = await _unitOfWork.Users.Insert(_mapper.Map<User>(request.User));
+        var item = await _unitOfWork.Users.Insert(_mapper.Map<User>(request.Content));
         var status = await _unitOfWork.SaveChangesAsync();
         if (status > 0)
         {
-            return new(_mapper.Map<UserViewModel>(responseCar));
+            return new(_mapper.Map<UserViewModel>(item));
         }
         else
         {
@@ -32,6 +32,6 @@ public class UsersManagementService : BaseManagementService, IUsersManagementSer
         }
     }
 
-    public async Task<GetUsersResponse> GetAllUsers()
+    public async Task<ListResponse<UserViewModel>> GetAllUsers()
         => new((await _unitOfWork.Users.GetAll()).Select(_mapper.Map<UserViewModel>).ToList());
 }

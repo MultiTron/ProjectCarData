@@ -1,6 +1,6 @@
 ﻿namespace PCD.Infrastructure.DTOs.Cars;
 
-public class CarViewModel
+public class CarViewModel : BaseViewModel
 {
     required public int Id { get; set; }
     required public string Brand { get; set; }

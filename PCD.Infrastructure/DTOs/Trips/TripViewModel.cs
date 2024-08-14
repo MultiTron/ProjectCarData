@@ -1,5 +1,5 @@
 ﻿namespace PCD.Infrastructure.DTOs.Trips;
-public class TripViewModel
+public class TripViewModel : BaseViewModel
 {
     required public int Id { get; set; }
     required public TimeOnly Duration { get; set; }

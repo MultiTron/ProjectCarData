@@ -1,6 +1,6 @@
 ﻿namespace PCD.Infrastructure.DTOs.Cars;
 
-public class CarAlterModel
+public class CarAlterModel : BaseAlterModel
 {
     required public string Brand { get; set; }
     required public string Model { get; set; }
