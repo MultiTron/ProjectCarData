@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PCD.ApplicationServices.Interfaces;
-using PCD.ApplicationServices.Messaging.Cars.Response;
+using PCD.ApplicationServices.Messaging.Response;
 using PCD.Infrastructure.DTOs.Cars;
 
 namespace PCD.API.Controllers;

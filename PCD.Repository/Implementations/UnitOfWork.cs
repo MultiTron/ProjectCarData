@@ -13,6 +13,7 @@ public class UnitOfWork : IUnitOfWork
 
     public ICarsRepository Cars { get; set; }
     public IUsersRepository Users { get; set; }
+    public ITripsRepository Trips { get; set; }
 
     public UnitOfWork(DbContext context)
     {
@@ -20,6 +21,7 @@ public class UnitOfWork : IUnitOfWork
         //TODO: initialize repositories with context
         Cars = new CarsRepository(context);
         Users = new UsersRepository(context);
+        Trips = new TripsRepository(context);
     }
     public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
 
