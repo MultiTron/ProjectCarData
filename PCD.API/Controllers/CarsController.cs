@@ -30,19 +30,20 @@ public class CarsController : ControllerBase
     [HttpGet("GetTollInfo/Car/{carId}")]
     public async Task<IActionResult> Get([FromRoute] int carId)
     {
-        var response = await _service.GetCarById(carId);
+        var response = await _service.GetCarById(new(carId));
         if (response.StatusCode != ApplicationServices.Messaging.StatusCode.Success)
         {
             return BadRequest();
         }
-        if (response.Car is null)
+        if (response.Content is null)
         {
             return NotFound();
         }
-        var httpResponse = await _tollClient.GetStringAsync($"{response.Car.CountryOfRegistration}/{response.Car.LicensePlateNumber}");
+        var httpResponse = await _tollClient.GetStringAsync($"{response.Content.CountryOfRegistration}/{response.Content.LicensePlateNumber}");
         var content = JsonConvert.DeserializeObject<VignetteResponse>(httpResponse);
         if (!content.Ok)
         {
+
             return BadRequest();
         }
         return Ok(content.Vignette);

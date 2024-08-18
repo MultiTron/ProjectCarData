@@ -12,4 +12,8 @@ public class CarsRepository : Repository<Car>, ICarsRepository
 
     public async override Task<IEnumerable<Car>> GetAll()
         => await base.GetAll().Result.AsQueryable().Include("Trips").ToListAsync();
+    public async Task<List<Car>> GetCarsByUser(int userId)
+    {
+        return (await base.GetAll()).Where(x => x.UserId == userId).ToList();
+    }
 }
