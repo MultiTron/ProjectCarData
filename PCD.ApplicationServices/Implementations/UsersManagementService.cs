@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using PCD.ApplicationServices.Interfaces;
+using PCD.ApplicationServices.Messaging;
 using PCD.ApplicationServices.Messaging.Request;
 using PCD.ApplicationServices.Messaging.Response;
 using PCD.Data.Entities;
+using PCD.Infrastructure.DTOs.Cars;
 using PCD.Infrastructure.DTOs.Users;
 using PCD.Repository.Interfaces;
 
@@ -28,10 +30,52 @@ public class UsersManagementService : BaseManagementService, IUsersManagementSer
         }
         else
         {
-            return new() { StatusCode = Messaging.StatusCode.ClientError };
+            return new() { StatusCode = StatusCode.ClientError };
         }
+    }
+
+    public async Task<BaseResponse> DeleteUser(IdRequest request)
+    {
+        try
+        {
+            await Task.Run(() => _unitOfWork.Users.Delete(request.Id));
+            await _unitOfWork.SaveChangesAsync();
+        }
+        catch (Exception)
+        {
+            return new(StatusCode.ServerError);
+        }
+        return new();
     }
 
     public async Task<ListResponse<UserViewModel>> GetAllUsers()
         => new((await _unitOfWork.Users.GetAll()).Select(_mapper.Map<UserViewModel>).ToList());
+
+    public async Task<ListResponse<CarViewModel>> GetCarsByUser(IdRequest request)
+    {
+        return new((await _unitOfWork.Cars.GetCarsByUser(request.Id)).Select(_mapper.Map<CarViewModel>).ToList());
+    }
+
+    public async Task<GetResponse<UserViewModel>> GetUserById(IdRequest request)
+    {
+        return new(_mapper.Map<UserViewModel>(await _unitOfWork.Users.GetById(request.Id)));
+    }
+
+    public async Task<UpdateResponse<UserViewModel>> UpdateUser(UpdateRequest<UserAlterModel> request)
+    {
+        var entity = _mapper.Map<User>(request.Content);
+        entity.Id = request.Id;
+        entity.Cars = new();
+        try
+        {
+            _unitOfWork.Users.Update(entity, "");
+            await _unitOfWork.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Update not working...");
+            return new(StatusCode.ServerError);
+        }
+        return new(_mapper.Map<UserViewModel>(entity));
+    }
 }
