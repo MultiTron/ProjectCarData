@@ -1,11 +1,13 @@
-﻿namespace PCD.Infrastructure.DTOs.Cars
+﻿namespace PCD.Infrastructure.DTOs.Cars;
+
+public class CarAlterModel : BaseAlterModel
 {
-    public class CarAlterModel
-    {
-        required public string Brand { get; set; }
-        required public string Model { get; set; }
-        required public int Year { get; set; }
-        required public string LicensePlateNumber { get; set; }
-        required public string CountryOfRegistration { get; set; }
-    }
+    required public string Brand { get; set; }
+    required public string Model { get; set; }
+    required public int Year { get; set; }
+    required public string LicensePlateNumber { get; set; }
+    required public string CountryOfRegistration { get; set; }
+    required public string VIN { get; set; }
+    public int? UserId { get; set; }
+
 }
