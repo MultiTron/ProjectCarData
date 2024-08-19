@@ -9,165 +9,164 @@ using PCD.Data;
 
 #nullable disable
 
-namespace PCD.API.Migrations
+namespace PCD.API.Migrations;
+
+[DbContext(typeof(ApplicationContext))]
+[Migration("20240729144149_Initial")]
+partial class Initial
 {
-    [DbContext(typeof(ApplicationContext))]
-    [Migration("20240729144149_Initial")]
-    partial class Initial
+    /// <inheritdoc />
+    protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
-        {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.7")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+        modelBuilder
+            .HasAnnotation("ProductVersion", "8.0.7")
+            .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+        SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("PCD.Data.Entities.Car", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+        modelBuilder.Entity("PCD.Data.Entities.Car", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Brand")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Brand")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CountryOfRegistration")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("CountryOfRegistration")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("CreatedOn")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("LicensePlateNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("LicensePlateNumber")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Model")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("UpdatedOn")
+                    .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                b.Property<int?>("UserId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("VIN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("VIN")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
+                b.Property<int>("Year")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                b.HasIndex("UserId");
 
-                    b.ToTable("Cars");
-                });
+                b.ToTable("Cars");
+            });
 
-            modelBuilder.Entity("PCD.Data.Entities.Trip", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+        modelBuilder.Entity("PCD.Data.Entities.Trip", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CarId")
-                        .HasColumnType("int");
+                b.Property<int?>("CarId")
+                    .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("CreatedOn")
+                    .HasColumnType("datetime2");
 
-                    b.Property<double>("Distance")
-                        .HasColumnType("float");
+                b.Property<double>("Distance")
+                    .HasColumnType("float");
 
-                    b.Property<TimeOnly>("Duration")
-                        .HasColumnType("time");
+                b.Property<TimeOnly>("Duration")
+                    .HasColumnType("time");
 
-                    b.Property<double>("FuelConsumption")
-                        .HasColumnType("float");
+                b.Property<double>("FuelConsumption")
+                    .HasColumnType("float");
 
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("UpdatedOn")
+                    .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("CarId");
+                b.HasIndex("CarId");
 
-                    b.ToTable("Trips");
-                });
+                b.ToTable("Trips");
+            });
 
-            modelBuilder.Entity("PCD.Data.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+        modelBuilder.Entity("PCD.Data.Entities.User", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("CreatedOn")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("DriversLicenseNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("DriversLicenseNumber")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Email")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("FirstName")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("LastName")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Password")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("UpdatedOn")
+                    .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Users");
-                });
+                b.ToTable("Users");
+            });
 
-            modelBuilder.Entity("PCD.Data.Entities.Car", b =>
-                {
-                    b.HasOne("PCD.Data.Entities.User", null)
-                        .WithMany("Cars")
-                        .HasForeignKey("UserId");
-                });
+        modelBuilder.Entity("PCD.Data.Entities.Car", b =>
+            {
+                b.HasOne("PCD.Data.Entities.User", null)
+                    .WithMany("Cars")
+                    .HasForeignKey("UserId");
+            });
 
-            modelBuilder.Entity("PCD.Data.Entities.Trip", b =>
-                {
-                    b.HasOne("PCD.Data.Entities.Car", null)
-                        .WithMany("Trips")
-                        .HasForeignKey("CarId");
-                });
+        modelBuilder.Entity("PCD.Data.Entities.Trip", b =>
+            {
+                b.HasOne("PCD.Data.Entities.Car", null)
+                    .WithMany("Trips")
+                    .HasForeignKey("CarId");
+            });
 
-            modelBuilder.Entity("PCD.Data.Entities.Car", b =>
-                {
-                    b.Navigation("Trips");
-                });
+        modelBuilder.Entity("PCD.Data.Entities.Car", b =>
+            {
+                b.Navigation("Trips");
+            });
 
-            modelBuilder.Entity("PCD.Data.Entities.User", b =>
-                {
-                    b.Navigation("Cars");
-                });
+        modelBuilder.Entity("PCD.Data.Entities.User", b =>
+            {
+                b.Navigation("Cars");
+            });
 #pragma warning restore 612, 618
-        }
     }
 }

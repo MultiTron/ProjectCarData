@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCD.API", "PCD.API\PCD.API.csproj", "{6E4A7BEB-44FB-4D34-B77A-6C354B9AD4DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCD.API", "PCD.API\PCD.API.csproj", "{6E4A7BEB-44FB-4D34-B77A-6C354B9AD4DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCD.Data", "PCD.Data\PCD.Data.csproj", "{E5D2044C-56B9-495D-A61B-5F6F59E1B8F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCD.Data", "PCD.Data\PCD.Data.csproj", "{E5D2044C-56B9-495D-A61B-5F6F59E1B8F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCD.ApplicationServices", "PCD.ApplicationServices\PCD.ApplicationServices.csproj", "{1810A1FF-7243-42EB-B6E2-BB97AE500D0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCD.ApplicationServices", "PCD.ApplicationServices\PCD.ApplicationServices.csproj", "{1810A1FF-7243-42EB-B6E2-BB97AE500D0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCD.Infrastructure", "PCD.Infrastructure\PCD.Infrastructure.csproj", "{B46B79BE-BF3A-4D7C-B415-2F6CB84BCD13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCD.Infrastructure", "PCD.Infrastructure\PCD.Infrastructure.csproj", "{B46B79BE-BF3A-4D7C-B415-2F6CB84BCD13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCD.Repository", "PCD.Repository\PCD.Repository.csproj", "{12D32A64-15AF-41E1-9EB4-B9AC07256876}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B46B79BE-BF3A-4D7C-B415-2F6CB84BCD13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B46B79BE-BF3A-4D7C-B415-2F6CB84BCD13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B46B79BE-BF3A-4D7C-B415-2F6CB84BCD13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12D32A64-15AF-41E1-9EB4-B9AC07256876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D32A64-15AF-41E1-9EB4-B9AC07256876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D32A64-15AF-41E1-9EB4-B9AC07256876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12D32A64-15AF-41E1-9EB4-B9AC07256876}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
