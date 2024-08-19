@@ -20,7 +20,7 @@ public class CarsManagementService : BaseManagementService, ICarsManagementServi
 
     public async Task<CreateResponse<CarViewModel>> CreateCar(CreateRequest<CarAlterModel> request)
     {
-        var responseCar = await _unitOfWork.Cars.Insert(_mapper.Map<Car>(request.Content));
+        var responseCar = await _unitOfWork.Cars.Save(_mapper.Map<Car>(request.Content));
         var status = await _unitOfWork.SaveChangesAsync();
         if (status > 0)
         {
@@ -28,7 +28,7 @@ public class CarsManagementService : BaseManagementService, ICarsManagementServi
         }
         else
         {
-            return new() { StatusCode = Messaging.StatusCode.ClientError };
+            return new() { StatusCode = StatusCode.ClientError };
         }
     }
 
@@ -37,4 +37,35 @@ public class CarsManagementService : BaseManagementService, ICarsManagementServi
 
     public async Task<GetResponse<CarViewModel>> GetCarById(IdRequest request)
         => new(_mapper.Map<CarViewModel>(await _unitOfWork.Cars.GetById(request.Id)));
+    public async Task<BaseResponse> DeleteCar(IdRequest request)
+    {
+        try
+        {
+            await Task.Run(() => { _unitOfWork.Cars.Delete(request.Id); });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Delete Error...");
+            return new(StatusCode.ServerError);
+        }
+        return new();
+    }
+
+    public async Task<UpdateResponse<CarViewModel>> UpdateCar(UpdateRequest<CarAlterModel> request)
+    {
+        var entity = _mapper.Map<Car>(request.Content);
+        entity.Id = request.Id;
+        entity.Trips = new();
+        try
+        {
+            await _unitOfWork.Cars.Save(entity);
+            await _unitOfWork.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Update not working...");
+            return new(StatusCode.ServerError);
+        }
+        return new(_mapper.Map<CarViewModel>(entity));
+    }
 }

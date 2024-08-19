@@ -12,6 +12,11 @@ public class CarsRepository : Repository<Car>, ICarsRepository
 
     public async override Task<IEnumerable<Car>> GetAll()
         => await base.GetAll().Result.AsQueryable().Include("Trips").ToListAsync();
+    public override async Task<Car> Save(Car entity)
+    {
+        entity.User = Context.Find<User>(entity.Id);
+        return await base.Save(entity);
+    }
     public async Task<List<Car>> GetCarsByUser(int userId)
     {
         return (await base.GetAll()).Where(x => x.UserId == userId).ToList();
