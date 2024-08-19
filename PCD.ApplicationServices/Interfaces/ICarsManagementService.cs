@@ -10,4 +10,6 @@ public interface ICarsManagementService
     public Task<ListResponse<CarViewModel>> GetAllCarsAsync();
     public Task<CreateResponse<CarViewModel>> CreateCar(CreateRequest<CarAlterModel> request);
     public Task<GetResponse<CarViewModel>> GetCarById(IdRequest request);
+    public Task<BaseResponse> DeleteCar(IdRequest request);
+    public Task<UpdateResponse<CarViewModel>> UpdateCar(UpdateRequest<CarAlterModel> request);
 }

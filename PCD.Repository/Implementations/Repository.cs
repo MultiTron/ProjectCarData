@@ -45,7 +45,7 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
 
     public async Task<T> GetById(int id)
     {
-        return await DbSet.FindAsync(id);
+        return await DbSet.FindAsync(id) ?? throw new Exception("Entry Not Found .i.");
     }
 
     public async Task<T> Insert(T entity)
@@ -63,7 +63,7 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         return entity;
     }
 
-    public void Update(T entity, string excludeProperties = "")
+    public async Task<T> Update(T entity, string excludeProperties = "")
     {
         entity.UpdatedOn = DateTime.UtcNow;
         EntityEntry<T> entry = Context.Entry(entity);
@@ -77,16 +77,18 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         {
             entry.Property(property).IsModified = false;
         }
+        await Task.WhenAll();
+        return entity;
     }
-    public virtual void Save(T entity)
+    public virtual async Task<T> Save(T entity)
     {
         if (entity.Id == 0)
         {
-            Insert(entity);
+            return await Insert(entity);
         }
         else
         {
-            Update(entity);
+            return await Update(entity);
         }
         //}
         //protected static IQueryable<T> SoftDeleteQueryFilter(IQueryable<T> query, bool? isActive)

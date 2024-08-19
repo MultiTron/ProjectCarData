@@ -7,4 +7,7 @@ public class CarAlterModel : BaseAlterModel
     required public int Year { get; set; }
     required public string LicensePlateNumber { get; set; }
     required public string CountryOfRegistration { get; set; }
+    required public string VIN { get; set; }
+    public int? UserId { get; set; }
+
 }

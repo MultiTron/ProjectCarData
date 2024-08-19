@@ -6,9 +6,9 @@ public interface IRepository<T> where T : BaseEntity
 {
     Task<IEnumerable<T>> GetAll();
     Task<T> GetById(int id);
-    void Save(T entity);
+    Task<T> Save(T entity);
     Task<T> Insert(T entity);
-    void Update(T entity, string excludeProperties = "");
+    Task<T> Update(T entity, string excludeProperties = "");
     void Delete(T entity);
     void Delete(int id);
 }
