@@ -28,7 +28,7 @@ public class CarsManagementService : BaseManagementService, ICarsManagementServi
         }
         else
         {
-            return new() { StatusCode = StatusCode.ClientError };
+            return new() { StatusCode = CustomStatusCode.ClientError };
         }
     }
 
@@ -46,7 +46,7 @@ public class CarsManagementService : BaseManagementService, ICarsManagementServi
         catch (Exception ex)
         {
             _logger.LogError(ex, "Delete Error...");
-            return new(StatusCode.ServerError);
+            return new(CustomStatusCode.ServerError);
         }
         return new();
     }
@@ -64,7 +64,7 @@ public class CarsManagementService : BaseManagementService, ICarsManagementServi
         catch (Exception ex)
         {
             _logger.LogError(ex, "Update not working...");
-            return new(StatusCode.ServerError);
+            return new(CustomStatusCode.ServerError);
         }
         return new(_mapper.Map<CarViewModel>(entity));
     }

@@ -1,6 +1,6 @@
 ﻿namespace PCD.ApplicationServices.Messaging;
 
-public enum StatusCode
+public enum CustomStatusCode
 {
     Success = 200,
     Redirection = 300,
