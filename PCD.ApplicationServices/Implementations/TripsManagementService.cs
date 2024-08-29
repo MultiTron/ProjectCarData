@@ -26,7 +26,7 @@ public class TripsManagementService : BaseManagementService, ITripsManagementSer
         }
         else
         {
-            return new() { StatusCode = StatusCode.ClientError };
+            return new() { StatusCode = CustomStatusCode.ClientError };
         }
     }
 
@@ -39,7 +39,7 @@ public class TripsManagementService : BaseManagementService, ITripsManagementSer
         catch (Exception ex)
         {
             _logger.LogError(ex, "Delete Error...");
-            return new(StatusCode.ServerError);
+            return new(CustomStatusCode.ServerError);
         }
         return new();
     }
@@ -62,7 +62,7 @@ public class TripsManagementService : BaseManagementService, ITripsManagementSer
         catch (Exception ex)
         {
             _logger.LogError(ex, "Update not working...");
-            return new(StatusCode.ServerError);
+            return new(CustomStatusCode.ServerError);
         }
         return new(_mapper.Map<TripViewModel>(entity));
     }

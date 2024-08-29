@@ -7,7 +7,7 @@ public class CustomControllerBase : ControllerBase
 {
     protected IActionResult Output(BaseResponse response)
     {
-        if (response.StatusCode == ApplicationServices.Messaging.StatusCode.Success)
+        if (response.StatusCode == ApplicationServices.Messaging.CustomStatusCode.Success)
         {
             return Ok(response);
         }

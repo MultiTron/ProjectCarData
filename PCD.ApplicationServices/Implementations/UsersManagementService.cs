@@ -30,7 +30,7 @@ public class UsersManagementService : BaseManagementService, IUsersManagementSer
         }
         else
         {
-            return new() { StatusCode = StatusCode.ClientError };
+            return new() { StatusCode = CustomStatusCode.ClientError };
         }
     }
 
@@ -43,7 +43,7 @@ public class UsersManagementService : BaseManagementService, IUsersManagementSer
         }
         catch (Exception)
         {
-            return new(StatusCode.ServerError);
+            return new(CustomStatusCode.ServerError);
         }
         return new();
     }
@@ -74,7 +74,7 @@ public class UsersManagementService : BaseManagementService, IUsersManagementSer
         catch (Exception ex)
         {
             _logger.LogError(ex, "Update not working...");
-            return new(StatusCode.ServerError);
+            return new(CustomStatusCode.ServerError);
         }
         return new(_mapper.Map<UserViewModel>(entity));
     }

@@ -1,23 +1,36 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PCD.ApplicationServices.Interfaces;
+using PCD.ApplicationServices.Messaging;
 using PCD.ApplicationServices.Messaging.Response;
 using PCD.Infrastructure.DTOs.Cars;
 
 namespace PCD.API.Controllers;
-
+/// <summary>
+/// API Controller for exposing endpoints about customers Car data
+/// </summary>
 [Route("api/[controller]")]
 [ApiController]
 public class CarsController : CustomControllerBase
 {
     private readonly ICarsManagementService _service;
     private readonly HttpClient _tollClient;
+    /// <summary>
+    /// Car Controller Constructor with required Dependancy injection.
+    /// </summary>
+    /// <param name="service">Car Service Dependancy.</param>
+    /// <param name="factory">Http Client Factory Dependancy. Required for making calls to external APIs.</param>
     public CarsController(ICarsManagementService service, IHttpClientFactory factory)
     {
         _service = service;
         _tollClient = factory.CreateClient("TollApi");
     }
+    /// <summary>
+    /// Get Endpoint for retrieving all Cars
+    /// </summary>
+    /// <returns>Asyncronous Task which represents an IActionResult. The IActionResult contains the response from the service layer.</returns>
     [HttpGet]
+    [ProducesResponseType(typeof(ListResponse<CarViewModel>), )]
     public async Task<IActionResult> Get()
     {
         var response = await _service.GetAllCarsAsync();
@@ -27,7 +40,7 @@ public class CarsController : CustomControllerBase
     public async Task<IActionResult> Get([FromRoute] int carId)
     {
         var response = await _service.GetCarById(new(carId));
-        if (response.StatusCode != ApplicationServices.Messaging.StatusCode.Success)
+        if (response.StatusCode != CustomStatusCode.Success)
         {
             return BadRequest();
         }

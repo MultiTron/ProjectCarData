@@ -10,7 +10,7 @@ public class ListResponse<T> : BaseResponse where T : BaseViewModel
     {
         Content = content;
     }
-    public ListResponse(StatusCode status = StatusCode.Success) : base(status)
+    public ListResponse(CustomStatusCode status = CustomStatusCode.Success) : base(status)
     {
         Content = new List<T>();
     }
