@@ -7,7 +7,6 @@ namespace PCD.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
 public class UsersController : CustomControllerBase
 {
     private readonly IUsersManagementService _service;
@@ -54,10 +53,10 @@ public class UsersController : CustomControllerBase
         return Output(response);
     }
     [AllowAnonymous]
-    [HttpGet("Token")]
-    public async Task<IActionResult> Token([FromQuery] string clientId, [FromQuery] string secret)
+    [HttpGet("Login")]
+    public async Task<IActionResult> Login([FromQuery] string email, [FromQuery] string password)
     {
-        var response = await _service.Authenticate(clientId, secret);
+        var response = await _service.Authenticate(email, password);
         return Output(response);
     }
 }
