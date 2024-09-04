@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using PCD.ApplicationServices.Interfaces;
 using PCD.ApplicationServices.Messaging;
 using PCD.ApplicationServices.Messaging.Request;
@@ -8,16 +10,43 @@ using PCD.Data.Entities;
 using PCD.Infrastructure.DTOs.Cars;
 using PCD.Infrastructure.DTOs.Users;
 using PCD.Repository.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace PCD.ApplicationServices.Implementations;
 
 public class UsersManagementService : BaseManagementService, IUsersManagementService
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly string _token;
 
-    public UsersManagementService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<UsersManagementService> logger) : base(mapper, logger)
+    public UsersManagementService(IUnitOfWork unitOfWork, IOptions<JwtSettings> options, IMapper mapper, ILogger<UsersManagementService> logger) : base(mapper, logger)
     {
         _unitOfWork = unitOfWork;
+        _token = options.Value.Key!;
+    }
+
+    public async Task<TokenResponse> Authenticate(string clientId, string secret)
+    {
+        if (!(await _unitOfWork.Users.GetAll()).Any(x => x.Email == clientId && x.Password == secret))
+        {
+            return new(CustomStatusCode.NotFound);
+        }
+        JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(_token);
+        SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
+        {
+            Subject = new ClaimsIdentity(
+            [
+                new(ClaimTypes.Name, clientId)
+            ]),
+            Expires = DateTime.UtcNow.AddMinutes(30),
+            SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+        };
+
+        var token = handler.CreateToken(tokenDescriptor);
+        return new(handler.WriteToken(token));
     }
 
     public async Task<CreateResponse<UserViewModel>> CreateUser(CreateRequest<UserAlterModel> request)
@@ -68,7 +97,7 @@ public class UsersManagementService : BaseManagementService, IUsersManagementSer
         entity.Cars = new();
         try
         {
-            _unitOfWork.Users.Update(entity, "");
+            await _unitOfWork.Users.Update(entity, "");
             await _unitOfWork.SaveChangesAsync();
         }
         catch (Exception ex)

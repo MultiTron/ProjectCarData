@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PCD.ApplicationServices.Interfaces;
 using PCD.Infrastructure.DTOs.Users;
 
@@ -6,6 +7,7 @@ namespace PCD.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class UsersController : CustomControllerBase
 {
     private readonly IUsersManagementService _service;
@@ -51,5 +53,11 @@ public class UsersController : CustomControllerBase
         var response = await _service.UpdateUser(new(id, model));
         return Output(response);
     }
-
+    [AllowAnonymous]
+    [HttpGet("Token")]
+    public async Task<IActionResult> Token([FromQuery] string clientId, [FromQuery] string secret)
+    {
+        var response = await _service.Authenticate(clientId, secret);
+        return Output(response);
+    }
 }
