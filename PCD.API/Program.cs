@@ -1,14 +1,36 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PCD.API;
 using PCD.ApplicationServices.Implementations;
 using PCD.ApplicationServices.Interfaces;
+using PCD.ApplicationServices.Messaging;
 using PCD.Data;
 using PCD.Repository.Implementations;
 using PCD.Repository.Interfaces;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(x =>
+    {
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidIssuer = builder.Configuration.GetSection("JwtSettings").GetSection("Issuer").Value,
+            ValidAudience = builder.Configuration.GetSection("JwtSettings").GetSection("Audiance").Value,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JwtSettings").GetSection("Key").Value!)),
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true
+        };
+    });
+builder.Services.AddAuthorization();
+
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(nameof(JwtSettings)));
 
 // Add services to the container.
 var conn = builder.Configuration.GetConnectionString("DefaultConnectionString");
@@ -87,6 +109,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
