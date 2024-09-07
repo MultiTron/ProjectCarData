@@ -33,6 +33,7 @@ public class CarsController : CustomControllerBase
     [HttpGet]
     [ProducesResponseType(typeof(ListResponse<CarViewModel>), (int)CustomStatusCode.Success)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]
+    [ProducesResponseType((int)CustomStatusCode.Unauthorized)]
     public async Task<IActionResult> Get()
     {
         var response = await _service.GetAllCarsAsync();
@@ -43,10 +44,11 @@ public class CarsController : CustomControllerBase
     /// </summary>
     /// <param name="id">Car's unique Identifier</param>
     /// <returns>Asyncronous Task which represents an IActionResult. The IActionResult contains the response from the service layer.</returns>
-    [HttpGet("GetTollInfo/Car/{carId}")]
+    [HttpGet("GetTollInfo/Car/{id}")]
     [ProducesResponseType(typeof(VignetteResponse), (int)CustomStatusCode.Success)]
     [ProducesResponseType((int)CustomStatusCode.NotFound)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]
+    [ProducesResponseType((int)CustomStatusCode.Unauthorized)]
     public async Task<IActionResult> Get([FromRoute] int id)
     {
         var response = await _service.GetCarById(new(id));
@@ -85,6 +87,7 @@ public class CarsController : CustomControllerBase
     [ProducesResponseType(typeof(CreateResponse<CarViewModel>), (int)CustomStatusCode.Success)]
     [ProducesResponseType((int)CustomStatusCode.ClientError)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]
+    [ProducesResponseType((int)CustomStatusCode.Unauthorized)]
     public async Task<IActionResult> Create([FromBody] CarAlterModel model)
     {
         var response = await _service.CreateCar(new(model));
@@ -99,6 +102,7 @@ public class CarsController : CustomControllerBase
     [ProducesResponseType(typeof(BaseResponse), (int)CustomStatusCode.Success)]
     [ProducesResponseType((int)CustomStatusCode.NotFound)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]
+    [ProducesResponseType((int)CustomStatusCode.Unauthorized)]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         var response = await _service.DeleteCar(new(id));
@@ -113,6 +117,7 @@ public class CarsController : CustomControllerBase
     [HttpPut("Car/{id}")]
     [ProducesResponseType(typeof(UpdateResponse<CarViewModel>), (int)CustomStatusCode.Success)]
     [ProducesResponseType((int)CustomStatusCode.ClientError)]
+    [ProducesResponseType((int)CustomStatusCode.Unauthorized)]
     [ProducesResponseType((int)CustomStatusCode.NotFound)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CarAlterModel model)
