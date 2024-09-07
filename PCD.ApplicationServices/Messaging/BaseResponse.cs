@@ -2,12 +2,12 @@
 
 public class BaseResponse
 {
-    public StatusCode StatusCode { get; set; }
+    public CustomStatusCode StatusCode { get; set; }
     public BaseResponse()
     {
-        StatusCode = StatusCode.Success;
+        StatusCode = CustomStatusCode.Success;
     }
-    public BaseResponse(StatusCode status)
+    public BaseResponse(CustomStatusCode status)
     {
         StatusCode = status;
     }

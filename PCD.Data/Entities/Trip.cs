@@ -9,4 +9,5 @@ public class Trip : BaseEntity
     required public double FuelConsumption { get; set; }
     [ForeignKey(nameof(Car))]
     required public int CarId { get; set; }
+    public virtual Car? Car { get; set; }
 }

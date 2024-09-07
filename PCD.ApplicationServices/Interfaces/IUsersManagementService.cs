@@ -14,4 +14,5 @@ public interface IUsersManagementService
     public Task<CreateResponse<UserViewModel>> CreateUser(CreateRequest<UserAlterModel> request);
     public Task<UpdateResponse<UserViewModel>> UpdateUser(UpdateRequest<UserAlterModel> request);
     public Task<BaseResponse> DeleteUser(IdRequest request);
+    public Task<TokenResponse> Authenticate(string clientId, string secret);
 }

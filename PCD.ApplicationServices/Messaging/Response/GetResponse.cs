@@ -5,7 +5,7 @@ namespace PCD.ApplicationServices.Messaging.Response;
 public class GetResponse<T> : BaseResponse where T : BaseViewModel
 {
     public T? Content { get; set; }
-    public GetResponse(StatusCode status = StatusCode.Success) : base(status)
+    public GetResponse(CustomStatusCode status = CustomStatusCode.Success) : base(status)
     {
 
     }
