@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PCD.ApplicationServices.Messaging;
+using PCD.Infrastructure.Messaging;
 
 namespace PCD.API.Controllers;
 

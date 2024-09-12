@@ -1,4 +1,4 @@
-﻿namespace PCD.ApplicationServices.Messaging;
+﻿namespace PCD.Infrastructure.Messaging;
 
 public class BaseResponse
 {

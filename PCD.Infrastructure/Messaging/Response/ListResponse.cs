@@ -1,6 +1,6 @@
 ﻿using PCD.Infrastructure.DTOs;
 
-namespace PCD.ApplicationServices.Messaging.Response;
+namespace PCD.Infrastructure.Messaging.Response;
 
 public class ListResponse<T> : BaseResponse where T : BaseViewModel
 {

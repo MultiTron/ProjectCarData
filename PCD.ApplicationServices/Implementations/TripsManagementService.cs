@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using PCD.ApplicationServices.Interfaces;
-using PCD.ApplicationServices.Messaging;
-using PCD.ApplicationServices.Messaging.Request;
-using PCD.ApplicationServices.Messaging.Response;
 using PCD.Data.Entities;
 using PCD.Infrastructure.DTOs.Trips;
+using PCD.Infrastructure.Messaging;
+using PCD.Infrastructure.Messaging.Request;
+using PCD.Infrastructure.Messaging.Response;
 using PCD.Repository.Interfaces;
 
 namespace PCD.ApplicationServices.Implementations;

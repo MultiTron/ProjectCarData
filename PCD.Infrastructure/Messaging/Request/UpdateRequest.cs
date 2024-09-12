@@ -1,6 +1,6 @@
 ﻿using PCD.Infrastructure.DTOs;
 
-namespace PCD.ApplicationServices.Messaging.Request
+namespace PCD.Infrastructure.Messaging.Request
 {
     public class UpdateRequest<T> : IdRequest where T : BaseAlterModel
     {

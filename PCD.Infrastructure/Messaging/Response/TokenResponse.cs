@@ -1,4 +1,4 @@
-﻿namespace PCD.ApplicationServices.Messaging.Response;
+﻿namespace PCD.Infrastructure.Messaging.Response;
 public class TokenResponse : BaseResponse
 {
     public string? Token { get; set; }

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PCD.ApplicationServices.Messaging.Response;
+namespace PCD.Infrastructure.Messaging.Response;
 
 public class VignetteResponse
 {
