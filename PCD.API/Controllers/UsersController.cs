@@ -48,6 +48,7 @@ public class UsersController : CustomControllerBase
     ///     }
     /// </remarks>
     [HttpPost]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(CreateResponse<UserViewModel>), (int)CustomStatusCode.Success)]
     [ProducesResponseType((int)CustomStatusCode.ClientError)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]

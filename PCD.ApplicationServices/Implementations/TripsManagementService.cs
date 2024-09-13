@@ -11,10 +11,8 @@ using PCD.Repository.Interfaces;
 namespace PCD.ApplicationServices.Implementations;
 public class TripsManagementService : BaseManagementService, ITripsManagementService
 {
-    private readonly IUnitOfWork _unitOfWork;
-    public TripsManagementService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CarsManagementService> logger) : base(mapper, logger)
+    public TripsManagementService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CarsManagementService> logger) : base(mapper, unitOfWork, logger)
     {
-        _unitOfWork = unitOfWork;
     }
     public async Task<CreateResponse<TripViewModel>> CreateTrip(CreateRequest<TripAlterModel> request)
     {

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCD.ApplicationServices", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCD.Infrastructure", "PCD.Infrastructure\PCD.Infrastructure.csproj", "{B46B79BE-BF3A-4D7C-B415-2F6CB84BCD13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCD.Repository", "PCD.Repository\PCD.Repository.csproj", "{12D32A64-15AF-41E1-9EB4-B9AC07256876}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCD.Repository", "PCD.Repository\PCD.Repository.csproj", "{12D32A64-15AF-41E1-9EB4-B9AC07256876}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

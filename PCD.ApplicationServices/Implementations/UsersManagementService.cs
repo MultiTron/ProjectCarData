@@ -6,6 +6,7 @@ using PCD.ApplicationServices.Interfaces;
 using PCD.Data.Entities;
 using PCD.Infrastructure.DTOs.Cars;
 using PCD.Infrastructure.DTOs.Users;
+using PCD.Infrastructure.Interfaces;
 using PCD.Infrastructure.Messaging;
 using PCD.Infrastructure.Messaging.Request;
 using PCD.Infrastructure.Messaging.Response;
@@ -18,18 +19,18 @@ namespace PCD.ApplicationServices.Implementations;
 
 public class UsersManagementService : BaseManagementService, IUsersManagementService
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IHashGenerator _hasher;
     private readonly string _token;
 
-    public UsersManagementService(IUnitOfWork unitOfWork, IOptions<JwtSettings> options, IMapper mapper, ILogger<UsersManagementService> logger) : base(mapper, logger)
+    public UsersManagementService(IUnitOfWork unitOfWork, IHashGenerator hasher, IOptions<JwtSettings> options, IMapper mapper, ILogger<UsersManagementService> logger) : base(mapper, unitOfWork, logger)
     {
-        _unitOfWork = unitOfWork;
+        _hasher = hasher;
         _token = options.Value.Key!;
     }
 
-    public async Task<TokenResponse> Authenticate(string clientId, string secret)
+    public async Task<TokenResponse> Authenticate(string email, string secret)
     {
-        if (!(await _unitOfWork.Users.GetAll()).Any(x => x.Email == clientId && x.Password == secret))
+        if (!(await _unitOfWork.Users.GetAll()).Any(x => x.Email == email && _hasher.Verify(x.PasswordHash, secret)))
         {
             return new(CustomStatusCode.NotFound);
         }
@@ -39,7 +40,7 @@ public class UsersManagementService : BaseManagementService, IUsersManagementSer
         {
             Subject = new ClaimsIdentity(
             [
-                new(ClaimTypes.Name, clientId)
+                new(ClaimTypes.Name, email)
             ]),
             Expires = DateTime.UtcNow.AddMinutes(30),
             SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
@@ -51,6 +52,7 @@ public class UsersManagementService : BaseManagementService, IUsersManagementSer
 
     public async Task<CreateResponse<UserViewModel>> CreateUser(CreateRequest<UserAlterModel> request)
     {
+        request.Content.PasswordHash = _hasher.Hash(request.Content.PasswordHash);
         var item = await _unitOfWork.Users.Insert(_mapper.Map<User>(request.Content));
         var status = await _unitOfWork.SaveChangesAsync();
         if (status > 0)

@@ -12,10 +12,8 @@ namespace PCD.ApplicationServices.Implementations;
 
 public class CarsManagementService : BaseManagementService, ICarsManagementService
 {
-    private readonly IUnitOfWork _unitOfWork;
-    public CarsManagementService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CarsManagementService> logger) : base(mapper, logger)
+    public CarsManagementService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CarsManagementService> logger) : base(mapper, unitOfWork, logger)
     {
-        _unitOfWork = unitOfWork;
     }
 
     public async Task<CreateResponse<CarViewModel>> CreateCar(CreateRequest<CarAlterModel> request)

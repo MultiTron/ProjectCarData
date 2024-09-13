@@ -25,11 +25,6 @@ public class HashGenerator : IHashGenerator
 
         var inputHash = Rfc2898DeriveBytes.Pbkdf2(userInput, salt, _iterations, _algorithmName, _keySize);
 
-        if (inputHash != hash)
-        {
-            return false;
-        }
-
-        return true;
+        return inputHash.SequenceEqual(hash);
     }
 }
