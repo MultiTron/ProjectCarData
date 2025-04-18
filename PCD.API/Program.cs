@@ -46,10 +46,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<ICarsRepository, CarsRepository>();
 builder.Services.AddScoped<ITripsRepository, TripsRepository>();
-
 builder.Services.AddScoped<IHashGenerator, HashGenerator>();
-
-
 builder.Services.AddHttpClient("TollApi", client =>
 {
     client.BaseAddress = builder.Configuration.GetValue<Uri>("TollAPIUrl");

@@ -3,6 +3,7 @@ using PCD.Infrastructure.Messaging;
 using PCD.Infrastructure.Messaging.Request;
 using PCD.Infrastructure.Messaging.Response;
 
+
 namespace PCD.ApplicationServices.Interfaces;
 public interface ITripsManagementService
 {
