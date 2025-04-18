@@ -16,7 +16,7 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.LastName, opt => opt.MapFrom(x => x.LastName))
             .ForMember(dest => dest.DriversLicenseNumber, opt => opt.MapFrom(x => x.DriversLicenseNumber))
             .ForMember(dest => dest.Email, opt => opt.MapFrom(x => x.Email))
-            .ForMember(dest => dest.Password, opt => opt.MapFrom(x => x.Password))
+            .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(x => x.PasswordHash))
             .ForMember(dest => dest.Cars, opt => opt.Ignore())
             .ForMember(dest => dest.CreatedOn, opt => opt.Ignore());
         CreateMap<User, UserViewModel>()
@@ -25,7 +25,7 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.LastName, opt => opt.MapFrom(x => x.LastName))
             .ForMember(dest => dest.DriversLicenseNumber, opt => opt.MapFrom(x => x.DriversLicenseNumber))
             .ForMember(dest => dest.Email, opt => opt.MapFrom(x => x.Email))
-            .ForMember(dest => dest.Password, opt => opt.MapFrom(x => x.Password));
+            .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(x => x.PasswordHash));
         CreateMap<CarAlterModel, Car>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Model, opt => opt.MapFrom(x => x.Model))

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PCD.ApplicationServices.Interfaces;
-using PCD.ApplicationServices.Messaging;
-using PCD.ApplicationServices.Messaging.Response;
 using PCD.Infrastructure.DTOs.Users;
+using PCD.Infrastructure.Messaging;
+using PCD.Infrastructure.Messaging.Response;
 
 namespace PCD.API.Controllers;
 /// <summary>
@@ -48,6 +48,7 @@ public class UsersController : CustomControllerBase
     ///     }
     /// </remarks>
     [HttpPost]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(CreateResponse<UserViewModel>), (int)CustomStatusCode.Success)]
     [ProducesResponseType((int)CustomStatusCode.ClientError)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]

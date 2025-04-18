@@ -1,7 +1,8 @@
-﻿using PCD.ApplicationServices.Messaging;
-using PCD.ApplicationServices.Messaging.Request;
-using PCD.ApplicationServices.Messaging.Response;
-using PCD.Infrastructure.DTOs.Trips;
+﻿using PCD.Infrastructure.DTOs.Trips;
+using PCD.Infrastructure.Messaging;
+using PCD.Infrastructure.Messaging.Request;
+using PCD.Infrastructure.Messaging.Response;
+
 
 namespace PCD.ApplicationServices.Interfaces;
 public interface ITripsManagementService

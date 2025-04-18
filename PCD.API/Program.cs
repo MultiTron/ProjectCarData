@@ -5,8 +5,10 @@ using Microsoft.OpenApi.Models;
 using PCD.API;
 using PCD.ApplicationServices.Implementations;
 using PCD.ApplicationServices.Interfaces;
-using PCD.ApplicationServices.Messaging;
 using PCD.Data;
+using PCD.Infrastructure.Implementations;
+using PCD.Infrastructure.Interfaces;
+using PCD.Infrastructure.Messaging;
 using PCD.Repository.Implementations;
 using PCD.Repository.Interfaces;
 using System.Reflection;
@@ -44,8 +46,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<ICarsRepository, CarsRepository>();
 builder.Services.AddScoped<ITripsRepository, TripsRepository>();
-
-
+builder.Services.AddScoped<IHashGenerator, HashGenerator>();
 builder.Services.AddHttpClient("TollApi", client =>
 {
     client.BaseAddress = builder.Configuration.GetValue<Uri>("TollAPIUrl");

@@ -6,5 +6,5 @@ public class UserAlterModel : BaseAlterModel
     required public string LastName { get; set; }
     required public string DriversLicenseNumber { get; set; }
     required public string Email { get; set; }
-    required public string Password { get; set; }
+    required public string PasswordHash { get; set; }
 }
