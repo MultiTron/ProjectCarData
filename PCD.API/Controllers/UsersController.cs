@@ -89,11 +89,11 @@ public class UsersController : CustomControllerBase
         return Output(response);
     }
     /// <summary>
-    /// Get Endpoint for retrieving all Users
+    /// Get Endpoint for retrieving all Cars for one User
     /// </summary>
     /// <param name="id">User's unique identifier</param>
     /// <returns>Asyncronous Task which represents an IActionResult. The IActionResult contains the response from the service layer.</returns>
-    [HttpGet("User/{id}/Users")]
+    [HttpGet("User/{id}/Cars")]
     [ProducesResponseType(typeof(GetResponse<UserViewModel>), (int)CustomStatusCode.Success)]
     [ProducesResponseType((int)CustomStatusCode.NotFound)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]
