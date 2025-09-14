@@ -30,7 +30,8 @@ public class UsersManagementService : BaseManagementService, IUsersManagementSer
 
     public async Task<TokenResponse> Authenticate(string email, string secret)
     {
-        if (!(await _unitOfWork.Users.GetAll()).Any(x => x.Email == email && _hasher.Verify(x.PasswordHash, secret)))
+        var user = (await _unitOfWork.Users.GetAll()).FirstOrDefault(x => x.Email == email && _hasher.Verify(x.PasswordHash, secret));
+        if (user == null)
         {
             return new(CustomStatusCode.NotFound);
         }
@@ -47,7 +48,7 @@ public class UsersManagementService : BaseManagementService, IUsersManagementSer
         };
 
         var token = handler.CreateToken(tokenDescriptor);
-        return new(handler.WriteToken(token));
+        return new(handler.WriteToken(token), _mapper.Map<UserViewModel>(user));
     }
 
     public async Task<CreateResponse<UserViewModel>> CreateUser(CreateRequest<UserAlterModel> request)

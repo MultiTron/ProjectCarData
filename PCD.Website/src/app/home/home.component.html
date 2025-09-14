@@ -1,0 +1,5 @@
+@if (authService.isAuthenticated()) {
+<p>Welcome, {{ authService.user()?.firstName }}</p>
+} @else {
+<p>Welcome, stranger</p>
+}

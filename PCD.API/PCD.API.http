@@ -1,6 +1,6 @@
 @PCD.API_HostAddress = http://localhost:5237
 
-GET {{PCD.API_HostAddress}}/weatherforecast/
+GET {{PCD.API_HostAddress}}/api/Cars/GetTollInfo/Car/9
 Accept: application/json
 
 ###

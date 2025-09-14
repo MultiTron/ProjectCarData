@@ -1,0 +1,19 @@
+services:
+  pcd.api:
+    image: ${DOCKER_REGISTRY-}pcdapi
+    build:
+      context: .
+      dockerfile: PCD.API/Dockerfile
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql-db
+    ports:
+        - "1433:1433"
+    environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Your_password123
+        - MSSQL_TLS_ENABLED=0   # disables TLS
+    volumes:
+        - mssql-data:/var/opt/mssql
+volumes:
+  mssql-data:

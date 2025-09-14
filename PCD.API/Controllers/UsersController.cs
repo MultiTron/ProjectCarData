@@ -127,7 +127,7 @@ public class UsersController : CustomControllerBase
     /// <param name="password">User's password</param>
     /// <returns>Asyncronous Task which represents an IActionResult. The IActionResult contains the response from the service layer.</returns>
     [AllowAnonymous]
-    [HttpGet("Login")]
+    [HttpGet("[action]")]
     [ProducesResponseType(typeof(TokenResponse), (int)CustomStatusCode.Success)]
     [ProducesResponseType((int)CustomStatusCode.ClientError)]
     [ProducesResponseType((int)CustomStatusCode.Unauthorized)]

@@ -11,8 +11,29 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCD.ApplicationServices", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCD.Infrastructure", "PCD.Infrastructure\PCD.Infrastructure.csproj", "{B46B79BE-BF3A-4D7C-B415-2F6CB84BCD13}"
 EndProject
-
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCD.Repository", "PCD.Repository\PCD.Repository.csproj", "{12D32A64-15AF-41E1-9EB4-B9AC07256876}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PCD.Website", "PCD.Website\", "{EE50D978-726B-DE4C-EBF8-1232C77285FA}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8.1"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_60782"
+		Debug.AspNetCompiler.PhysicalPath = "PCD.Website\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60782\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_60782"
+		Release.AspNetCompiler.PhysicalPath = "PCD.Website\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60782\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "60782"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +61,14 @@ Global
 		{12D32A64-15AF-41E1-9EB4-B9AC07256876}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12D32A64-15AF-41E1-9EB4-B9AC07256876}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12D32A64-15AF-41E1-9EB4-B9AC07256876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE50D978-726B-DE4C-EBF8-1232C77285FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE50D978-726B-DE4C-EBF8-1232C77285FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE50D978-726B-DE4C-EBF8-1232C77285FA}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE50D978-726B-DE4C-EBF8-1232C77285FA}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
