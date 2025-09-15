@@ -1,0 +1,28 @@
+<table>
+  <thead>
+    <tr>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Year</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if (carService.loading()) {
+    <tr>
+      <td colspan="3">Loading...</td>
+    </tr>
+    } @else if (carService.error()) {
+    <tr>
+      <td colspan="3" class="error">{{ carService.error() }}</td>
+    </tr>
+    } @else { @for (car of carService.cars(); track car.id) {
+    <tr>
+      <td>{{ car.brand }}</td>
+      <td>{{ car.model }}</td>
+      <td>{{ car.year }}</td>
+      <td><a href="/vignette/{{ car.id }}">Chack vignette status</a></td>
+    </tr>
+    } }
+  </tbody>
+</table>
