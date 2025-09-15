@@ -1,10 +1,11 @@
 import { Component, effect, inject } from '@angular/core';
 import { CarService } from './car.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cars',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './cars.component.html',
   styleUrl: './cars.component.scss',
 })
