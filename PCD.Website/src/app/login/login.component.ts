@@ -18,7 +18,6 @@ import { TokenResponse } from '../interfaces/token-response';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',

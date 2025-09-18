@@ -3,11 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { VignetteService } from './vignette.service';
 
 @Component({
-  selector: 'app-vignette',
-  standalone: true,
-  imports: [],
-  templateUrl: './vignette.component.html',
-  styleUrl: './vignette.component.scss',
+    selector: 'app-vignette',
+    imports: [],
+    templateUrl: './vignette.component.html',
+    styleUrl: './vignette.component.scss'
 })
 export class Vignette {
   private _carId = signal<number | null>(null);

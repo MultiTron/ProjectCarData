@@ -10,7 +10,6 @@ import { CarService } from './car.service';
 
 @Component({
   selector: 'app-cars',
-  standalone: true,
   imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './cars.component.html',
   styleUrl: './cars.component.scss',

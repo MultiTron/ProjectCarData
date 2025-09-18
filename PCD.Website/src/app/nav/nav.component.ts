@@ -3,11 +3,10 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
-  selector: 'app-nav',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './nav.component.html',
-  styleUrl: './nav.component.scss',
+    selector: 'app-nav',
+    imports: [RouterLink],
+    templateUrl: './nav.component.html',
+    styleUrl: './nav.component.scss'
 })
 export class Nav {
   protected authService = inject(AuthService);
