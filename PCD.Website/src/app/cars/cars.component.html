@@ -1,5 +1,82 @@
 <section class="section">
-  <h2 class="mt-0">Your cars</h2>
+  <div class="section-header">
+    <h2 class="mt-0">Your cars</h2>
+    <a (click)="showAddForm()" class="button button-primary">Add your car</a>
+  </div>
+  <!-- ADD: Modal overlay (shown via showAddCar signal) -->
+  @if (isFormActive()) {
+  <div class="modal-overlay">
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="add-car-title"
+    >
+      <h3 id="add-car-title">Add a car</h3>
+
+      <form
+        [formGroup]="form"
+        (ngSubmit)="submitForm()"
+        class="modal-form form"
+      >
+        <input
+          class="input"
+          type="text"
+          formControlName="brand"
+          placeholder="Brand..."
+          autocomplete="organization"
+        />
+
+        <input
+          class="input"
+          type="text"
+          formControlName="model"
+          placeholder="Model..."
+          autocomplete="off"
+        />
+
+        <input
+          class="input"
+          type="number"
+          formControlName="year"
+          placeholder="Year of Manufacturing..."
+          autocomplete="off"
+        />
+
+        <input
+          class="input"
+          type="text"
+          formControlName="countryOfRegistration"
+          placeholder="Country of Registration..."
+          autocomplete="country-name"
+        />
+
+        <input
+          class="input"
+          type="text"
+          formControlName="licensePlateNumber"
+          placeholder="License plate number..."
+          autocomplete="off"
+        />
+
+        <input
+          class="input"
+          type="text"
+          formControlName="vin"
+          placeholder="VIN..."
+          autocomplete="off"
+        />
+
+        <div class="modal-actions">
+          <button type="button" class="button" (click)="closeForm()">
+            Cancel
+          </button>
+          <button type="submit" class="button button-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  }
   <div class="surface">
     <table class="table">
       <thead>
@@ -31,8 +108,9 @@
           <td>
             <div class="actions">
               <a class="button" [routerLink]="['/vignette', car.id]"
-                >Check vignette status</a
+                >Check toll</a
               >
+              <a class="button" (click)="showUpdateForm(car.id)">Edit</a>
             </div>
           </td>
         </tr>
