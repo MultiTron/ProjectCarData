@@ -1,6 +1,6 @@
 ﻿using PCD.Data.Entities;
 
 namespace PCD.Repository.Interfaces;
-public interface ITripsRepository : IRepository<Trip>
+public interface ITripsRepository : IRepository<Trip, Guid>
 {
 }
