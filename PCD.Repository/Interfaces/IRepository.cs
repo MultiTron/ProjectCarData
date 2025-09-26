@@ -2,7 +2,7 @@
 
 namespace PCD.Repository.Interfaces;
 
-public interface IRepository<T> where T : BaseEntity
+public interface IRepository<T, ID> where T : BaseEntity
 {
     /// <summary>
     /// Gets all entries from the DbSet
@@ -15,7 +15,7 @@ public interface IRepository<T> where T : BaseEntity
     /// <param name="id">The id of the entity</param>
     /// <returns>A task that represents the asynchronos get operation. The task result contains an entity from the DbSet.</returns>
     /// <exception cref="Exception"></exception>
-    Task<T> GetById(int id);
+    Task<T> GetById(ID id);
     /// <summary>
     /// Determins, wheter the entity is present in the database. If True Updates the entity. Else Inserts the entity.
     /// </summary>
@@ -44,5 +44,5 @@ public interface IRepository<T> where T : BaseEntity
     /// Deletes an entry from the database.
     /// </summary>
     /// <param name="id">The id of the entity to be deleted from the database.</param>
-    void Delete(int id);
+    void Delete(ID id);
 }

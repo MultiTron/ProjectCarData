@@ -1,9 +1,9 @@
 ﻿namespace PCD.Infrastructure.Messaging;
 public class IdRequest : BaseRequest
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
-    public IdRequest(int id)
+    public IdRequest(Guid id)
     {
         Id = id;
     }

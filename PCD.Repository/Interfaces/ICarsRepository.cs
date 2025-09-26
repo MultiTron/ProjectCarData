@@ -2,7 +2,7 @@
 
 namespace PCD.Repository.Interfaces;
 
-public interface ICarsRepository : IRepository<Car>
+public interface ICarsRepository : IRepository<Car, Guid>
 {
-    public Task<List<Car>> GetCarsByUser(int userId);
+    public Task<List<Car>> GetCarsByUser(Guid userId);
 }

@@ -66,7 +66,7 @@ public class TripsController : CustomControllerBase
     [ProducesResponseType((int)CustomStatusCode.NotFound)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]
     [ProducesResponseType((int)CustomStatusCode.Unauthorized)]
-    public async Task<IActionResult> Delete([FromRoute] int id)
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         var response = await _service.DeleteTrip(new(id));
         return Output(response);
@@ -81,7 +81,7 @@ public class TripsController : CustomControllerBase
     [ProducesResponseType((int)CustomStatusCode.NotFound)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]
     [ProducesResponseType((int)CustomStatusCode.Unauthorized)]
-    public async Task<IActionResult> GetById([FromRoute] int id)
+    public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
         var response = await _service.GetTripById(new(id));
         return Output(response);
@@ -98,7 +98,7 @@ public class TripsController : CustomControllerBase
     [ProducesResponseType((int)CustomStatusCode.Unauthorized)]
     [ProducesResponseType((int)CustomStatusCode.NotFound)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] TripAlterModel model)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] TripAlterModel model)
     {
         var response = await _service.UpdateTrip(new(id, model));
         return Output(response);

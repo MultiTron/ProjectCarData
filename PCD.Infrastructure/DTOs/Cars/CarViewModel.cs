@@ -8,5 +8,5 @@ public class CarViewModel : BaseViewModel
     required public string LicensePlateNumber { get; set; }
     required public string CountryOfRegistration { get; set; }
     required public string VIN { get; set; }
-    public int? UserId { get; set; }
+    public Guid? UserId { get; set; }
 }

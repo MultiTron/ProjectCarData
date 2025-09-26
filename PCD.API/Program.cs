@@ -20,7 +20,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins(builder.Configuration.GetSection("Website").GetSection("Url").Value ?? throw new ArgumentNullException("Website url was not set!"))
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -47,7 +47,7 @@ builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(nameof(
 
 // Add services to the container.
 var conn = builder.Configuration.GetConnectionString("DefaultConnectionString");
-builder.Services.AddDbContext<DbContext, ApplicationContext>(options => options.UseSqlServer(conn, x => x.MigrationsAssembly("PCD.API")));
+builder.Services.AddDbContext<DbContext, ApplicationContext>(options => options.UseNpgsql(conn, x => x.MigrationsAssembly("PCD.API")));
 
 builder.Services.AddScoped<IUsersManagementService, UsersManagementService>();
 builder.Services.AddScoped<ICarsManagementService, CarsManagementService>();
@@ -68,7 +68,7 @@ builder.Services.AddHttpClient("TollApi", client =>
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
-builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile(typeof(AutoMapperProfile)));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -115,6 +115,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+    db.Database.Migrate();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

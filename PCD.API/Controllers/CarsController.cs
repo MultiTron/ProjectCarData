@@ -49,7 +49,7 @@ public class CarsController : CustomControllerBase
     [ProducesResponseType((int)CustomStatusCode.NotFound)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]
     [ProducesResponseType((int)CustomStatusCode.Unauthorized)]
-    public async Task<IActionResult> Get([FromRoute] int id)
+    public async Task<IActionResult> Get([FromRoute] Guid id)
     {
         var response = await _service.GetCarById(new(id));
         if (response.StatusCode != CustomStatusCode.Success)
@@ -103,7 +103,7 @@ public class CarsController : CustomControllerBase
     [ProducesResponseType((int)CustomStatusCode.NotFound)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]
     [ProducesResponseType((int)CustomStatusCode.Unauthorized)]
-    public async Task<IActionResult> Delete([FromRoute] int id)
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         var response = await _service.DeleteCar(new(id));
         return Output(response);
@@ -120,7 +120,7 @@ public class CarsController : CustomControllerBase
     [ProducesResponseType((int)CustomStatusCode.Unauthorized)]
     [ProducesResponseType((int)CustomStatusCode.NotFound)]
     [ProducesResponseType((int)CustomStatusCode.ServerError)]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CarAlterModel model)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] CarAlterModel model)
     {
         var response = await _service.UpdateCar(new(id, model));
         return Output(response);
