@@ -1,11 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PCD.Data.Entities;
 
-public class BaseEntity
+public abstract class BaseEntity
 {
     [Key]
-    public int Id { get; set; }
-    required public DateTime CreatedOn { get; set; }
-    public DateTime? UpdatedOn { get; set; }
+    [Column("id")]
+    public Guid Id { get; set; }
+    [Column("created_at")]
+    required public DateTime CreatedAt { get; set; }
+    [Column("updated_at")]
+    public DateTime? UpdatedAt { get; set; }
 }

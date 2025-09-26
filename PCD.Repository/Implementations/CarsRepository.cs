@@ -4,7 +4,7 @@ using PCD.Repository.Interfaces;
 
 namespace PCD.Repository.Implementations;
 
-public class CarsRepository : Repository<Car>, ICarsRepository
+public class CarsRepository : Repository<Car, Guid>, ICarsRepository
 {
     public CarsRepository(DbContext context) : base(context)
     {
@@ -17,7 +17,7 @@ public class CarsRepository : Repository<Car>, ICarsRepository
         entity.User = Context.Find<User>(entity.Id);
         return await base.Save(entity);
     }
-    public async Task<List<Car>> GetCarsByUser(int userId)
+    public async Task<List<Car>> GetCarsByUser(Guid userId)
     {
         return (await base.GetAll()).Where(x => x.UserId == userId).ToList();
     }

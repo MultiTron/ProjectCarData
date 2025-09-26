@@ -8,7 +8,7 @@ namespace PCD.Repository.Implementations;
 /// Base Repository class
 /// </summary>
 /// <typeparam name="T">The T object must inherit BaseEntity</typeparam>
-public class Repository<T> : IRepository<T> where T : BaseEntity
+public class Repository<T, ID> : IRepository<T, ID> where T : BaseEntity
 {
     /// <summary>
     /// Property for the DbSet of the T object
@@ -50,7 +50,7 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
     /// Deletes an entry from the database.
     /// </summary>
     /// <param name="id">The id of the entity to be deleted from the database.</param>
-    public void Delete(int id)
+    public void Delete(ID id)
     {
         var entity = DbSet.Find(id);
         if (entity != null)
@@ -72,7 +72,7 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
     /// <param name="id">The id of the entity</param>
     /// <returns>A task that represents the asynchronos get operation. The task result contains an entity from the DbSet.</returns>
     /// <exception cref="Exception"></exception>
-    public async Task<T> GetById(int id)
+    public async Task<T> GetById(ID id)
     {
         return await DbSet.FindAsync(id) ?? throw new Exception("Entry Not Found .i.");
     }
@@ -83,7 +83,7 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
     /// <returns>A task that represents the asynchronos insert operation. The task result contains the inserted entity.</returns>
     public async Task<T> Insert(T entity)
     {
-        entity.CreatedOn = DateTime.UtcNow;
+        entity.CreatedAt = DateTime.UtcNow;
         EntityEntry<T> entry = this.Context.Entry(entity);
         if (entry.State != EntityState.Detached)
         {
@@ -103,7 +103,7 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
     /// <returns>A task that represents the asynchronos update operation. The task result contains the updated entity.</returns>
     public async Task<T> Update(T entity, string excludeProperties = "")
     {
-        entity.UpdatedOn = DateTime.UtcNow;
+        entity.UpdatedAt = DateTime.UtcNow;
         EntityEntry<T> entry = Context.Entry(entity);
         if (entry.State != EntityState.Detached)
         {
@@ -125,7 +125,7 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
     /// <returns>A task that represents the asynchronos post operation. The task result contains the saved entity.</returns>
     public virtual async Task<T> Save(T entity)
     {
-        if (entity.Id == 0)
+        if (entity.UpdatedAt == null)
         {
             return await Insert(entity);
         }

@@ -2,6 +2,6 @@
 
 namespace PCD.Repository.Interfaces;
 
-public interface IUsersRepository : IRepository<User>
+public interface IUsersRepository : IRepository<User, Guid>
 {
 }
