@@ -1,19 +1,47 @@
 services:
+  pcd.website:
+    container_name: pcd.website
+    ports:
+        - ${WEBSITE_PORT}:4200
+    build:
+      context: .
+      dockerfile: PCD.Website/Dockerfile
+
   pcd.api:
     image: ${DOCKER_REGISTRY-}pcdapi
+    container_name: pcd.api
+    ports:
+        - ${HTTP_API_PORT}:8080
+        - ${HTTPS_API_PORT}:8081
     build:
       context: .
       dockerfile: PCD.API/Dockerfile
-  mssql:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: mssql-db
-    ports:
-        - "1433:1433"
     environment:
-        - ACCEPT_EULA=Y
-        - SA_PASSWORD=Your_password123
-        - MSSQL_TLS_ENABLED=0   # disables TLS
+      ConnectionStrings__DefaultConnectionString: ${POSTGRES_CONNECTION_STRING}
+      JwtSettings__Issuer: ${JWT_ISSUER}
+      JwtSettings__Audience: ${JWT_AUDIENCE}
+      JwtSettings__Key: ${JWT_KEY}
+      Website__Url: ${WEBSITE_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+  
+  postgres:
+    image: postgres:latest
+    container_name: postgres-db
+    ports:
+        - "${POSTGRES_PORT}:5432"
+    environment: 
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-        - mssql-data:/var/opt/mssql
+        - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 volumes:
-  mssql-data:
+  db-data:

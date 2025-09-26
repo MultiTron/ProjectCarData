@@ -1,34 +1,31 @@
-# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+# Base image for development with .NET SDK
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS dev
 
-# This stage is used when running from VS in fast mode (Default for Debug configuration)
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
+# Set working directory
 WORKDIR /app
+
+# Expose ports (same as your app)
 EXPOSE 8080
 EXPOSE 8081
 
-
-# This stage is used to build the service project
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
+# Copy only csproj files and restore dependencies first (for caching)
 COPY ["PCD.API/PCD.API.csproj", "PCD.API/"]
 COPY ["PCD.ApplicationServices/PCD.ApplicationServices.csproj", "PCD.ApplicationServices/"]
 COPY ["PCD.Infrastructure/PCD.Infrastructure.csproj", "PCD.Infrastructure/"]
 COPY ["PCD.Repository/PCD.Repository.csproj", "PCD.Repository/"]
 COPY ["PCD.Data/PCD.Data.csproj", "PCD.Data/"]
 RUN dotnet restore "./PCD.API/PCD.API.csproj"
+
+# Copy the rest of the code
 COPY . .
-WORKDIR "/src/PCD.API"
-RUN dotnet build "./PCD.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# This stage is used to publish the service project to be copied to the final stage
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./PCD.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+# Set environment variables for development
+ENV DOTNET_USE_POLLING_FILE_WATCHER=1 \
+    DOTNET_RUNNING_IN_CONTAINER=true \
+    DOTNET_USE_DESIGN_TIME_BUILD=true
 
-# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PCD.API.dll"]
+# Set working directory to API project
+WORKDIR "/app/PCD.API"
+
+# Default entrypoint for dev: run with watch for live reload
+ENTRYPOINT ["dotnet", "watch", "run", "--urls", "http://0.0.0.0:8080;http://0.0.0.0:8081"]
