@@ -1,0 +1,87 @@
+<section class="vignette section">
+  <h2 class="mt-0">Vignette Details</h2>
+
+  @if (tollService.loading()) {
+  <p class="muted">Loading vignette information…</p>
+  } @else if (tollService.error()) {
+  <p class="error">{{ tollService.error() }}</p>
+  } @else if (!tollService.toll()) {
+  <p class="muted">No vignette data available for this car.</p>
+  } @else {
+  <div class="surface">
+    <table class="table vignette-table">
+      <tbody>
+        <tr>
+          <th>License plate</th>
+          <td>{{ tollService.toll()?.licensePlateNumber }}</td>
+        </tr>
+        <tr>
+          <th>Vignette number</th>
+          <td>{{ tollService.toll()?.vignetteNumber }}</td>
+        </tr>
+        <tr>
+          <th>Country</th>
+          <td>{{ tollService.toll()?.country }}</td>
+        </tr>
+        <tr>
+          <th>Status</th>
+          <td>
+            @if (tollService.toll()?.statusBoolean) {
+            <span class="badge badge-success">Valid</span>
+            } @else {
+            <span class="badge badge-danger">Invalid</span>
+            }
+            <span class="muted">{{ tollService.toll()?.status }}</span>
+          </td>
+        </tr>
+        <tr>
+          <th>Price</th>
+          <td>{{ tollService.toll()?.price }} {{ tollService.toll()?.currency }}</td>
+        </tr>
+        <tr>
+          <th>Vehicle class</th>
+          <td>
+            {{ tollService.toll()?.vehicleClass }} ({{ tollService.toll()?.vehicleClassCode }})
+          </td>
+        </tr>
+        <tr>
+          <th>Vehicle type</th>
+          <td>{{ tollService.toll()?.vehicleType }} ({{ tollService.toll()?.vehicleTypeCode }})</td>
+        </tr>
+        <tr>
+          <th>Emissions class</th>
+          <td>
+            {{ tollService.toll()?.emissionsClass }} ({{ tollService.toll()?.emissionsClassCode }})
+          </td>
+        </tr>
+        <tr>
+          <th>Exempt</th>
+          <td>{{ tollService.toll()?.exempt ? 'Yes' : 'No' }}</td>
+        </tr>
+        <tr>
+          <th>Valid from</th>
+          <td>
+            {{
+              tollService.toll()?.validityDateFromFormated || tollService.toll()?.validityDateFrom
+            }}
+          </td>
+        </tr>
+        <tr>
+          <th>Valid to</th>
+          <td>
+            {{ tollService.toll()?.validityDateToFormated || tollService.toll()?.validityDateTo }}
+          </td>
+        </tr>
+        <tr>
+          <th>Issued</th>
+          <td>{{ tollService.toll()?.issueDateFormated || tollService.toll()?.issueDate }}</td>
+        </tr>
+        <tr>
+          <th>Whitelist</th>
+          <td>{{ tollService.toll()?.whitelist }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  }
+</section>

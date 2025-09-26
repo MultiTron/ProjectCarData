@@ -1,0 +1,51 @@
+<section class="section">
+  <div class="section-header">
+    <h2 class="mt-0">Your cars</h2>
+    <a (click)="showAddForm()" class="button button-primary">Add your car</a>
+  </div>
+  <!-- ADD: Modal overlay (shown via showAddCar signal) -->
+  @if (isUpdateFormActive()) {
+  <app-update-car [carId]="carUpdateId()!" (cancel)="closeUpdateForm()"></app-update-car>
+  } @if (isAddFormActive()) {
+  <app-create-car (cancel)="closeAddForm()"></app-create-car>
+  }
+  <div class="surface">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Make</th>
+          <th>Model</th>
+          <th>Year</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (carService.loading()) {
+        <tr>
+          <td colspan="4" class="muted">Loading…</td>
+        </tr>
+        } @else if (carService.error()) {
+        <tr>
+          <td colspan="4" class="error">{{ carService.error() }}</td>
+        </tr>
+        } @else if (!carService.cars().length) {
+        <tr>
+          <td colspan="4" class="muted">No cars found.</td>
+        </tr>
+        } @else { @for (car of carService.cars(); track car.id) {
+        <tr>
+          <td>{{ car.brand }}</td>
+          <td>{{ car.model }}</td>
+          <td>{{ car.year }}</td>
+          <td>
+            <div class="actions">
+              <a class="button" [routerLink]="['/toll', car.id]">Check toll</a>
+              <a class="button" (click)="showUpdateForm(car.id)">Edit</a>
+            </div>
+          </td>
+        </tr>
+        } }
+      </tbody>
+    </table>
+  </div>
+</section>

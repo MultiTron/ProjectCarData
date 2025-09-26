@@ -1,0 +1,19 @@
+@if (authService.isAuthenticated()) {
+<section class="section">
+  <h1 class="mt-0">
+    Welcome, {{ authService.user()?.firstName }} {{ authService.user()?.lastName }} 👋
+  </h1>
+  <p class="muted mb-5">Manage your cars and check toll statuses with a clean, fast UI.</p>
+  <div>
+    <a [routerLink]="['/cars']" class="button button-primary">Go to Cars</a>
+  </div>
+</section>
+} @else {
+<section class="section">
+  <h1 class="mt-0">Welcome, stranger</h1>
+  <p class="muted mb-5">Sign in to access your garage and verify toll details instantly.</p>
+  <div>
+    <a [routerLink]="['/login']" class="button">Login</a>
+  </div>
+</section>
+}
