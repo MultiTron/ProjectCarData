@@ -365,3 +365,4 @@ FodyWeavers.xsd
 /PCD.API/appsettings.json
 /PCD.API/appsettings.Development.json
 PCD.Website/.cursor/rules/angular-rules.mdc
+.env
